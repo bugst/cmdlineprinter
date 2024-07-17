@@ -12,6 +12,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/mattn/go-colorable"
+	"golang.org/x/exp/slices"
 )
 
 func main() {
@@ -21,5 +22,14 @@ func main() {
 		fmt.Fprintf(w, "%s%s\n",
 			color.RedString("Arg %d: ", i),
 			argColor.Sprint(arg))
+	}
+
+	fmt.Println()
+	fmt.Println("Environment:")
+	envs := os.Environ()
+	slices.Sort(envs)
+	for _, env := range envs {
+		argColor := color.New(color.BgBlue, color.FgWhite)
+		fmt.Fprintf(w, "  - %s\n", argColor.Sprint(env))
 	}
 }
